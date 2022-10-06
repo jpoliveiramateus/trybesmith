@@ -1,5 +1,5 @@
 import OrderModel from '../models/OrderModel';
-import IOrder from '../interfaces/oder.interface';
+import IOrder from '../interfaces/order.interface';
 
 class OrderService {
   public model: OrderModel;
@@ -11,6 +11,11 @@ class OrderService {
   public async getAll(): Promise<IOrder[]> {
     const orders = await this.model.getAll();
     return orders;
+  }
+
+  public async create(productsIds: number[], userId: number): Promise<IOrder> {
+    const order = await this.model.create(productsIds, userId);
+    return order;
   }
 }
 

@@ -17,8 +17,13 @@ const createUserSchema = Joi.object({
   password: Joi.string().min(8).required(),
 });
 
+const createOrderSchema = Joi.object({
+  productsIds: Joi.array().items(Joi.number()).required(),
+});
+
 export = {
   validateLoginSchema,
   createProductSchema,
   createUserSchema,
+  createOrderSchema,
 };

@@ -1,6 +1,10 @@
-import { Pool, RowDataPacket } from 'mysql2/promise';
-import IOrder from '../interfaces/oder.interface';
+import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
+
+import IOrder from '../interfaces/order.interface';
+
 import connection from './connection';
+
+import ProductModel from './ProductModel';
 
 export default class OrderModel {
   private connection: Pool;
@@ -25,5 +29,20 @@ export default class OrderModel {
     });
 
     return newListOrderWithProductsIds as IOrder[];
+  }
+
+  public async create(productsIds: number[], userId: number): Promise<IOrder> {
+    const productModel = new ProductModel();
+    
+    productsIds.forEach(async (productId) => {
+      const [{ insertId }] = await this.connection.execute<ResultSetHeader>(
+        'INSERT INTO Trybesmith.Orders (userId) VALUES (?)',
+        [userId],
+      );
+
+      await productModel.update(insertId, productId);
+    });
+
+    return { userId, productsIds };
   }
 }
