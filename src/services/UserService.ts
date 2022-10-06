@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 
 import UserModel from '../models/UserModel';
 
 import IUser from '../interfaces/user.interface';
 
-const { JWT_SECRET = 'SENHASUPERSECRETA' } = process.env;
+const { JWT_SECRET } = process.env;
 
 class UserService {
   public model: UserModel;
@@ -21,7 +21,7 @@ class UserService {
 
   private generateToken = (user: IUser): string => {
     const payload = { id: user.id, username: user.username };
-    const token = jwt.sign(payload, JWT_SECRET);
+    const token = jwt.sign(payload, JWT_SECRET as Secret);
     return token;
   };
 }
