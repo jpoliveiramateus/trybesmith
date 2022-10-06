@@ -3,7 +3,7 @@ import IProduct from '../interfaces/product.interface';
 import connection from './connection';
 
 export default class ProductModel {
-  public connection: Pool;
+  private connection: Pool;
 
   constructor() {
     this.connection = connection;
