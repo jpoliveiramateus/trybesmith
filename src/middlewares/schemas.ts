@@ -5,6 +5,12 @@ const validateLoginSchema = Joi.object({
   password: Joi.string().required(),
 });
 
+const createProductSchema = Joi.object({
+  name: Joi.string().min(3).required(),
+  amount: Joi.string().min(3).required(),
+});
+
 export = {
   validateLoginSchema,
+  createProductSchema,
 };
