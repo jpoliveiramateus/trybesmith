@@ -15,20 +15,13 @@ export default class OrderModel {
 
   public async getAll(): Promise<IOrder[]> {
     const [orders] = await this.connection.execute<RowDataPacket[]>(
-      `SELECT ord.id, ord.userId, GROUP_CONCAT(pro.id) AS 'productsIds'
+      `SELECT ord.id, ord.userId, JSON_ARRAYAGG(pro.id) AS 'productsIds'
       FROM Trybesmith.Orders as ord
       INNER JOIN Trybesmith.Products as pro ON ord.id = pro.orderId
       GROUP BY ord.id`,
     );
 
-    const newListOrderWithProductsIds = orders.map((order) => {
-      const productsIds = order.productsIds.split(',');
-      const convertIdsForNumber = productsIds.map(Number);
-
-      return { ...order, productsIds: convertIdsForNumber };
-    });
-
-    return newListOrderWithProductsIds as IOrder[];
+    return orders as IOrder[];
   }
 
   public async create(productsIds: number[], userId: number): Promise<IOrder> {
