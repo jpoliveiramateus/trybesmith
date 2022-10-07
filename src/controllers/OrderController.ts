@@ -29,7 +29,7 @@ class OrderController {
     const userId = decoded.id;
 
     const order = await this.service.create(productsIds, userId);
-    res.status(201).json(order);
+    return res.status(201).json(order);
   };
 }
 

@@ -34,14 +34,15 @@ export default class OrderModel {
   public async create(productsIds: number[], userId: number): Promise<IOrder> {
     const productModel = new ProductModel();
     
-    productsIds.forEach(async (productId) => {
-      const [{ insertId }] = await this.connection.execute<ResultSetHeader>(
-        'INSERT INTO Trybesmith.Orders (userId) VALUES (?)',
-        [userId],
-      );
+    const [{ insertId }] = await this.connection.execute<ResultSetHeader>(
+      'INSERT INTO Trybesmith.Orders (userId) VALUES (?)',
+      [userId],
+    );
 
-      await productModel.update(insertId, productId);
-    });
+    const insertedProducts = productsIds
+      .map((productId) => productModel.update(insertId, productId));
+
+    Promise.all(insertedProducts);
 
     return { userId, productsIds };
   }

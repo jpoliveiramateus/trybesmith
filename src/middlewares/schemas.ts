@@ -18,7 +18,7 @@ const createUserSchema = Joi.object({
 });
 
 const createOrderSchema = Joi.object({
-  productsIds: Joi.array().items(Joi.number()).required(),
+  productsIds: Joi.array().items(Joi.number().required()).required(),
 });
 
 export = {

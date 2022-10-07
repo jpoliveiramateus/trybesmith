@@ -7,7 +7,9 @@ const validateCreateOrder = async (req: Request, res: Response, next: NextFuncti
   if (error) {
     return res
       .status(error.details[0].type === 'any.required' ? 400 : 422)
-      .json({ message: error.message });
+      .json({ message: error.message
+        .includes('does not contain 1') 
+        ? '"productsIds" must include only numbers' : error.message });
   }
 
   next();
