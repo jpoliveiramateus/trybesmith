@@ -80,6 +80,15 @@ git clone git@github.com:jpoliveiramateus/trybesmith.git
   <summary><strong>POST /login</strong></summary>
   </br>
   • Se o login for feito com sucesso retorna um token para o usuário.
+  </br>
+  • O endpoint deve receber a seguinte estrutura:
+  
+```json
+  {
+    "username": "string",
+    "password": "string"
+  }
+```
 </details>
 
 ### Product
@@ -88,6 +97,15 @@ git clone git@github.com:jpoliveiramateus/trybesmith.git
   <summary><strong>POST /products</strong></summary>
   </br>
   • Cadastra um novo produto.
+  </br>
+  • O endpoint deve receber a seguinte estrutura:
+  
+  ```json
+    {
+      "name": "string",
+      "amount": "string"
+    }
+  ```
 </details>
 
 <details>
@@ -102,6 +120,17 @@ git clone git@github.com:jpoliveiramateus/trybesmith.git
   <summary><strong>POST /users</strong></summary>
   </br>
   • Cadastra um novo usuário.
+   </br> 
+  • O endpoint deve receber a seguinte estrutura:
+  
+  ```json
+  { 
+    "username": "string",
+    "classe": "string",
+    "level": "number",
+    "password": "string"
+  }
+```
 </details>
 
 ### Order
@@ -118,6 +147,14 @@ git clone git@github.com:jpoliveiramateus/trybesmith.git
   • Cadastra novos pedidos.
   </br>
   • O pedido só é criado caso a pessoa usuária esteja logada e o token JWT validado.
+  </br>
+  • O endpoint deve receber a seguinte estrutura:
+  
+```json
+  {
+    "productsIds": [1, 2]
+  }
+```
 </details>
 
 ## 🛠️ Ferramentas & Metodologias Utilizadas
